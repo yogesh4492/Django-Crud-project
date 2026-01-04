@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Programming Language</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8892bf 0%, #4f5b93 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #8892bf;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-btn:hover {
+            background: #8892bf;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
+        }
+
+        .header-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .php-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #8892bf;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .acronym-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #8892bf 0%, #4f5b93 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        h2 {
+            color: #8892bf;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #c5cae9;
+        }
+
+        h3 {
+            color: #4f5b93;
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .code-block {
+            background: #2b2d3a;
+            color: #e1e4e8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #8892bf;
+        }
+
+        .code-block code {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .php-tag {
+            color: #8892bf;
+        }
+
+        .php-keyword {
+            color: #c678dd;
+        }
+
+        .php-variable {
+            color: #e06c75;
+        }
+
+        .php-string {
+            color: #98c379;
+        }
+
+        .php-function {
+            color: #61afef;
+        }
+
+        .php-comment {
+            color: #5c6370;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #8892bf 0%, #a5b1d8 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #4527a0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline {
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #8892bf;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: #4f5b93;
+            font-size: 1.1rem;
+        }
+
+        .uses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .use-item {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #f57f17;
+        }
+
+        .cms-badge {
+            display: inline-block;
+            background: #8892bf;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .cms-badge:hover {
+            background: #c5cae9;
+            color: #4f5b93;
+            transform: translateY(-2px);
+        }
+
+        .server-side-box {
+            background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%);
+            border: 2px solid #0288d1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pros {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        }
+
+        .cons {
+            background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);
+        }
+
+        .key-points {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #8892bf;
+        }
+
+        .key-points li {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 15px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .header-section {
+                padding: 30px 20px;
+            }
+
+            .content-section {
+                padding: 25px 20px;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .home-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="home-btn">← Back to Home</a>
+
+    <div class="container">
+        <div class="header-section">
+            <div class="php-logo">🐘</div>
+            <h1>PHP</h1>
+            <p class="intro-text">A server-side scripting language for dynamic web development that runs on the server and is embedded in HTML.</p>
+            <div class="acronym-badge">Hypertext Preprocessor</div>
+        </div>
+
+        <div class="content-section">
+            <h2>What is PHP?</h2>
+            <p>PHP stands for <strong>Hypertext Preprocessor</strong>. It's a <strong>server-side scripting language</strong> designed for dynamic web development.</p>
+            <div class="key-points">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>✓ Runs on the server</li>
+                    <li>✓ Open-source and free</li>
+                    <li>✓ Embedded in HTML</li>
+                    <li>✓ Cross-platform</li>
+                    <li>✓ Interpreted (no compilation needed)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>History of PHP</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-year">1994:</span> Created by Rasmus Lerdorf
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">1995-1997:</span> PHP 3.0 released
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">1998-2000:</span> PHP 4 with Zend Engine
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2004:</span> PHP 5 introduced OOP
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2015:</span> PHP 7 with performance improvements
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2020+:</span> PHP 8 with JIT, union types, match expressions
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">Dynamic Content</div>
+                <div class="feature-item">Database Integration</div>
+                <div class="feature-item">Form Handling</div>
+                <div class="feature-item">Session Management</div>
+                <div class="feature-item">Error Handling</div>
+                <div class="feature-item">OOP Support</div>
+            </div>
+            <ul style="margin-top: 20px;">
+                <li>Dynamic content generation</li>
+                <li>Database integration (MySQL, PostgreSQL, SQLite, etc.)</li>
+                <li>Form handling ($_GET, $_POST)</li>
+                <li>Session and cookie management</li>
+                <li>Error handling with exceptions</li>
+                <li>Extensive built-in functions</li>
+                <li>OOP support: classes, inheritance, namespaces</li>
+                <li>Large community and framework ecosystem</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Server-Side Processing</h2>
+            <div class="server-side-box">
+                <p><strong>PHP runs on the server and generates HTML that is sent to the client's browser.</strong></p>
+                <p style="margin-top: 10px;">The client only sees the output, not the PHP code itself.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>PHP Syntax Basics</h2>
+            <div class="code-block">
+                <code><span class="php-tag">&lt;?php</span><br><span class="php-comment">// Print Hello World</span><br><span class="php-function">echo</span> <span class="php-string">"Hello, World!"</span>;<br><br><span class="php-comment">// Variables</span><br><span class="php-variable">$name</span> = <span class="php-string">"Yogesh"</span>;<br><span class="php-variable">$age</span> = <span class="php-string">30</span>;<br><span class="php-function">echo</span> <span class="php-string">"My name is </span><span class="php-variable">$name</span><span class="php-string"> and I am </span><span class="php-variable">$age</span><span class="php-string"> years old."</span>;<br><br><span class="php-comment">// Conditional</span><br><span class="php-keyword">if</span> (<span class="php-variable">$age</span> > <span class="php-string">18</span>) {<br>    <span class="php-function">echo</span> <span class="php-string">"You are an adult."</span>;<br>} <span class="php-keyword">else</span> {<br>    <span class="php-function">echo</span> <span class="php-string">"You are a minor."</span>;<br>}<br><br><span class="php-comment">// Loop</span><br><span class="php-keyword">for</span> (<span class="php-variable">$i</span> = <span class="php-string">1</span>; <span class="php-variable">$i</span> <= <span class="php-string">5</span>; <span class="php-variable">$i</span>++) {<br>    <span class="php-function">echo</span> <span class="php-string">"Number: </span><span class="php-variable">$i</span><span class="php-string">&lt;br&gt;"</span>;<br>}<br><span class="php-tag">?&gt;</span></code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Common Uses</h2>
+            <div class="uses-grid">
+                <div class="use-item">Websites</div>
+                <div class="use-item">Web Applications</div>
+                <div class="use-item">CMS Development</div>
+                <div class="use-item">E-commerce</div>
+                <div class="use-item">API Development</div>
+                <div class="use-item">Server-Side Tasks</div>
+            </div>
+            <ul style="margin-top: 20px;">
+                <li>Websites and web applications</li>
+                <li>Content management systems</li>
+                <li>E-commerce platforms</li>
+                <li>API development</li>
+                <li>Server-side tasks (form validation, file uploads, session management)</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Popular PHP-Based Platforms</h2>
+            <div style="text-align: center;">
+                <span class="cms-badge">WordPress</span>
+                <span class="cms-badge">Drupal</span>
+                <span class="cms-badge">Magento</span>
+                <span class="cms-badge">WooCommerce</span>
+                <span class="cms-badge">Laravel</span>
+                <span class="cms-badge">Symfony</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Database Integration</h2>
+            <p>PHP seamlessly integrates with various databases:</p>
+            <div class="code-block">
+                <code><span class="php-tag">&lt;?php</span><br><span class="php-comment">// MySQL connection example</span><br><span class="php-variable">$conn</span> = <span class="php-function">mysqli_connect</span>(<span class="php-string">"localhost"</span>, <span class="php-string">"username"</span>, <span class="php-string">"password"</span>, <span class="php-string">"database"</span>);<br><br><span class="php-keyword">if</span> (!<span class="php-variable">$conn</span>) {<br>    <span class="php-function">die</span>(<span class="php-string">"Connection failed: "</span> . <span class="php-function">mysqli_connect_error</span>());<br>}<br><span class="php-function">echo</span> <span class="php-string">"Connected successfully"</span>;<br><span class="php-tag">?&gt;</span></code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Advantages & Limitations</h2>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>✓ Advantages</h3>
+                    <ul>
+                        <li>Easy to learn</li>
+                        <li>Free and open-source</li>
+                        <li>Cross-platform</li>
+                        <li>Large community support</li>
+                        <li>Wide database support</li>
+                        <li>Compatible with popular servers</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>✗ Limitations</h3>
+                    <ul>
+                        <li>Slower for CPU-intensive tasks</li>
+                        <li>Inconsistent naming conventions</li>
+                        <li>Requires careful security coding</li>
+                        <li>Not ideal for large enterprise apps without proper architecture</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Conclusion</h2>
+            <p>PHP is a <strong>versatile, widely-used server-side scripting language</strong> ideal for creating dynamic and interactive web applications. With its ease of use, extensive database support, and massive ecosystem of frameworks and CMS platforms, PHP continues to power a significant portion of the web, including major sites like Facebook, Wikipedia, and WordPress.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotlin Programming Language</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #7f52ff 0%, #c711e1 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #7f52ff;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-btn:hover {
+            background: #7f52ff;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
+        }
+
+        .header-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .kotlin-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #7f52ff 0%, #c711e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            color: #7f52ff;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .jetbrains-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #7f52ff 0%, #c711e1 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        h2 {
+            color: #7f52ff;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #c711e1;
+        }
+
+        h3 {
+            color: #9b59ff;
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .code-block {
+            background: #2b2b2b;
+            color: #a9b7c6;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #7f52ff;
+        }
+
+        .code-block code {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .kt-keyword {
+            color: #cc7832;
+        }
+
+        .kt-function {
+            color: #ffc66d;
+        }
+
+        .kt-string {
+            color: #6a8759;
+        }
+
+        .kt-type {
+            color: #8888c6;
+        }
+
+        .kt-comment {
+            color: #808080;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #7f52ff 0%, #c711e1 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #6a1b9a;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline {
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%);
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #7f52ff;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: #7f52ff;
+            font-size: 1.1rem;
+        }
+
+        .key-points {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #7f52ff;
+        }
+
+        .key-points li {
+            margin-bottom: 10px;
+        }
+
+        .null-safety-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid #4caf50;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .interop-box {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            border: 2px solid #fbc02d;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .android-badge {
+            display: inline-block;
+            background: #3ddc84;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .uses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .use-item {
+            background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #01579b;
+        }
+
+        .framework-badge {
+            display: inline-block;
+            background: #7f52ff;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .framework-badge:hover {
+            background: #c711e1;
+            transform: translateY(-2px);
+        }
+
+        .multiplatform-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid #ff9800;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .platform-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #ff9800;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pros {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        }
+
+        .cons {
+            background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 15px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .header-section {
+                padding: 30px 20px;
+            }
+
+            .content-section {
+                padding: 25px 20px;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .home-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="home-btn">← Back to Home</a>
+
+    <div class="container">
+        <div class="header-section">
+            <div class="kotlin-logo">K</div>
+            <h1>Kotlin</h1>
+            <p class="intro-text">A modern, statically-typed programming language designed for JVM, Android, and multiplatform development.</p>
+            <div class="jetbrains-badge">Built by JetBrains</div>
+        </div>
+
+        <div class="content-section">
+            <h2>What is Kotlin?</h2>
+            <p>Kotlin is a <strong>modern, statically-typed programming language</strong> developed by JetBrains. It's designed for <strong>JVM, Android, and multiplatform development</strong>.</p>
+            <div class="key-points">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>✓ Statically typed</li>
+                    <li>✓ Interoperable with Java</li>
+                    <li>✓ Concise and expressive syntax</li>
+                    <li>✓ Supports functional and object-oriented programming</li>
+                    <li>✓ Open-source</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>History of Kotlin</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-year">2011:</span> Kotlin development started by JetBrains
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2016:</span> Kotlin 1.0 released (stable)
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2017:</span> Google announced official support for Android development
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2019+:</span> Kotlin Multiplatform for iOS, backend, web, and native development
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <span class="android-badge">🤖 Google's Official Android Language</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">Concise Syntax</div>
+                <div class="feature-item">Null Safety</div>
+                <div class="feature-item">Java Interop</div>
+                <div class="feature-item">Coroutines</div>
+                <div class="feature-item">Smart Casts</div>
+                <div class="feature-item">Extension Functions</div>
+                <div class="feature-item">Functional Programming</div>
+                <div class="feature-item">Multiplatform</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Null Safety</h2>
+            <div class="null-safety-box">
+                <p><strong>Kotlin's type system eliminates NullPointerExceptions at compile time!</strong></p>
+                <p style="margin-top: 10px;">Variables can't hold null unless explicitly declared as nullable with <code>?</code></p>
+            </div>
+            <div class="code-block">
+                <code><span class="kt-keyword">var</span> name: <span class="kt-type">String</span> = <span class="kt-string">"Kotlin"</span>  <span class="kt-comment">// Cannot be null</span><br><span class="kt-keyword">var</span> age: <span class="kt-type">Int?</span> = <span class="kt-keyword">null</span>      <span class="kt-comment">// Can be null</span></code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Java Interoperability</h2>
+            <div class="interop-box">
+                <p><strong>100% interoperable with Java!</strong></p>
+                <p style="margin-top: 10px;">Use existing Java libraries seamlessly. Call Kotlin from Java and Java from Kotlin without any issues.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Kotlin Syntax Basics</h2>
+            <div class="code-block">
+                <code><span class="kt-comment">// Print Hello World</span><br><span class="kt-keyword">fun</span> <span class="kt-function">main</span>() {<br>    <span class="kt-function">println</span>(<span class="kt-string">"Hello, World!"</span>)<br><br>    <span class="kt-comment">// Variables</span><br>    <span class="kt-keyword">val</span> name: <span class="kt-type">String</span> = <span class="kt-string">"Yogesh"</span><br>    <span class="kt-keyword">var</span> age: <span class="kt-type">Int</span> = 30<br>    <span class="kt-function">println</span>(<span class="kt-string">"My name is </span>$name<span class="kt-string"> and I am </span>$age<span class="kt-string"> years old."</span>)<br><br>    <span class="kt-comment">// Conditional</span><br>    <span class="kt-keyword">if</span> (age > 18) {<br>        <span class="kt-function">println</span>(<span class="kt-string">"You are an adult."</span>)<br>    } <span class="kt-keyword">else</span> {<br>        <span class="kt-function">println</span>(<span class="kt-string">"You are a minor."</span>)<br>    }<br><br>    <span class="kt-comment">// Loop</span><br>    <span class="kt-keyword">for</span> (i <span class="kt-keyword">in</span> 1..5) {<br>        <span class="kt-function">println</span>(<span class="kt-string">"Number: </span>$i<span class="kt-string">"</span>)<br>    }<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Coroutines</h2>
+            <p>Kotlin provides built-in support for <strong>asynchronous and non-blocking programming</strong> with coroutines:</p>
+            <div class="code-block">
+                <code><span class="kt-keyword">suspend fun</span> <span class="kt-function">fetchData</span>(): <span class="kt-type">String</span> {<br>    delay(1000)  <span class="kt-comment">// Non-blocking delay</span><br>    <span class="kt-keyword">return</span> <span class="kt-string">"Data loaded"</span><br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Kotlin Multiplatform</h2>
+            <div class="multiplatform-box">
+                <p><strong>Write shared code that runs on multiple platforms!</strong></p>
+                <div class="platform-grid">
+                    <div class="platform-item">Android</div>
+                    <div class="platform-item">iOS</div>
+                    <div class="platform-item">JVM</div>
+                    <div class="platform-item">JavaScript</div>
+                    <div class="platform-item">Native</div>
+                    <div class="platform-item">Web</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Common Uses</h2>
+            <div class="uses-grid">
+                <div class="use-item">Android Apps</div>
+                <div class="use-item">Backend Development</div>
+                <div class="use-item">Web Development</div>
+                <div class="use-item">Multiplatform Apps</div>
+                <div class="use-item">Data Science</div>
+                <div class="use-item">Scripting</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Popular Kotlin Frameworks</h2>
+            <div style="text-align: center;">
+                <span class="framework-badge">Ktor</span>
+                <span class="framework-badge">Spring</span>
+                <span class="framework-badge">Android Jetpack</span>
+                <span class="framework-badge">Compose</span>
+                <span class="framework-badge">Exposed</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Advantages & Limitations</h2>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>✓ Advantages</h3>
+                    <ul>
+                        <li>Concise, readable, expressive</li>
+                        <li>Fully interoperable with Java</li>
+                        <li>Null safety prevents errors</li>
+                        <li>Modern programming paradigms</li>
+                        <li>Official language for Android</li>
+                        <li>Easy async with coroutines</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>✗ Limitations</h3>
+                    <ul>
+                        <li>Slower compilation than Java (sometimes)</li>
+                        <li>Smaller community than Java</li>
+                        <li>Limited resources for niche platforms</li>
+                        <li>Learning curve from Java</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Conclusion</h2>
+            <p>Kotlin is a <strong>modern, concise, and versatile programming language</strong> ideal for Android, JVM, and multiplatform development. It combines safety, interoperability with Java, and expressiveness, making it a top choice for modern application development. With Google's official endorsement for Android and growing adoption in backend development, Kotlin represents the future of JVM-based programming.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming Language</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #3776ab;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-btn:hover {
+            background: #3776ab;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
+        }
+
+        .header-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .python-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #3776ab;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #3776ab;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ffd343;
+        }
+
+        h3 {
+            color: #2c5f8d;
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-block code {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd343 0%, #ffed4e 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #1565c0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item {
+            border-left: 4px solid #3776ab;
+            padding-left: 25px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '●';
+            position: absolute;
+            left: -9px;
+            color: #3776ab;
+            font-size: 1.5rem;
+        }
+
+        .library-tag {
+            display: inline-block;
+            background: #3776ab;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .library-tag:hover {
+            background: #ffd343;
+            color: #333;
+            transform: translateY(-2px);
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pros {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        }
+
+        .cons {
+            background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 15px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .header-section {
+                padding: 30px 20px;
+            }
+
+            .content-section {
+                padding: 25px 20px;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .home-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="home-btn">← Back to Home</a>
+
+    <div class="container">
+        <div class="header-section">
+            <div class="python-logo">🐍</div>
+            <h1>Python Programming Language</h1>
+            <p class="intro-text">A high-level, interpreted, general-purpose programming language known for its simple syntax and readability. One of the most popular programming languages in the world.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>History of Python</h2>
+            <div class="timeline-item">
+                <p>Python was created by <span class="highlight">Guido van Rossum</span> and released in <span class="highlight">1991</span>. The language was named after the British comedy show <em>Monty Python's Flying Circus</em>, not the snake.</p>
+                <p>Python is maintained by the <strong>Python Software Foundation (PSF)</strong>.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Why Python is Popular</h2>
+            <ul>
+                <li>✓ Has easy-to-read and write syntax</li>
+                <li>✓ Requires fewer lines of code</li>
+                <li>✓ Is platform-independent</li>
+                <li>✓ Has a huge standard library</li>
+                <li>✓ Is used in high-demand fields like AI and Data Science</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Features of Python</h2>
+            <div class="feature-grid">
+                <div class="feature-item">Simple & Clean Syntax</div>
+                <div class="feature-item">Interpreted Language</div>
+                <div class="feature-item">Dynamically Typed</div>
+                <div class="feature-item">Object-Oriented</div>
+                <div class="feature-item">Cross-Platform</div>
+                <div class="feature-item">Large Community</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>How Python Works</h2>
+            <p>Python code is executed by the <strong>Python Interpreter</strong>. The interpreter reads the code line by line and converts it into bytecode, which is then executed by the Python Virtual Machine (PVM).</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Basic Python Syntax</h2>
+            <div class="code-block">
+                <code>print("Hello, Python")</code>
+            </div>
+            <p>Python uses <strong>indentation</strong> instead of braces <code>{}</code> to define code blocks.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Variables in Python</h2>
+            <p>Variables are created automatically when a value is assigned. No data type declaration is required.</p>
+            <div class="code-block">
+                <code>name = "Yogesh"<br>age = 25</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Data Types in Python</h2>
+            <p>Common data types include: int, float, str, bool, list, tuple, dict, set</p>
+            <div class="code-block">
+                <code>languages = ["Python", "Java", "C++"]<br>score = 95</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Control Structures</h2>
+            <h3>Conditional Statements</h3>
+            <div class="code-block">
+                <code>if score > 50:<br>    print("Pass")<br>else:<br>    print("Fail")</code>
+            </div>
+
+            <h3>For Loop</h3>
+            <div class="code-block">
+                <code>for lang in languages:<br>    print(lang)</code>
+            </div>
+
+            <h3>While Loop</h3>
+            <div class="code-block">
+                <code>i = 1<br>while i <= 5:<br>    print(i)<br>    i += 1</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Functions in Python</h2>
+            <p>Functions are defined using the <code>def</code> keyword.</p>
+            <div class="code-block">
+                <code>def greet(name):<br>    return f"Hello {name}"</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Object-Oriented Programming (OOP)</h2>
+            <p>Python supports OOP concepts such as: Class, Object, Inheritance, Polymorphism</p>
+            <div class="code-block">
+                <code>class Student:<br>    def __init__(self, name):<br>        self.name = name</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Uses of Python</h2>
+            <ul>
+                <li>Web development (Django, Flask)</li>
+                <li>Data Science & Analytics</li>
+                <li>Machine Learning & AI</li>
+                <li>Automation & scripting</li>
+                <li>Game development</li>
+                <li>Desktop applications</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Popular Python Libraries & Frameworks</h2>
+            <div style="text-align: center;">
+                <span class="library-tag">Django</span>
+                <span class="library-tag">Flask</span>
+                <span class="library-tag">NumPy</span>
+                <span class="library-tag">Pandas</span>
+                <span class="library-tag">Matplotlib</span>
+                <span class="library-tag">TensorFlow</span>
+                <span class="library-tag">Scikit-learn</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Advantages & Limitations</h2>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>✓ Advantages</h3>
+                    <ul>
+                        <li>Easy to learn and use</li>
+                        <li>Highly readable</li>
+                        <li>Large ecosystem of libraries</li>
+                        <li>Strong community support</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>✗ Limitations</h3>
+                    <ul>
+                        <li>Slower than compiled languages</li>
+                        <li>Not ideal for mobile development</li>
+                        <li>High memory usage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Conclusion</h2>
+            <p>Python is a powerful, flexible, and beginner-friendly programming language. It is suitable for a wide range of applications, from simple scripts to complex machine learning systems. Learning Python provides strong career opportunities in modern software development.</p>
+        </div>
+    </div>
+</body>
+</html>

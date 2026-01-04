@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Portal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6366f1, #22c55e);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            color: #4f46e5;
+        }
+
+        .auth-buttons button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: 0.3s;
+        }
+
+        .login-btn {
+            height: 50px;
+            width: 100px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            text-decoration: none;
+            background: #22c55e;
+            color: white;
+        }
+
+        .register-btn {
+            height: 50px;
+            width: 100px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            text-decoration: none;
+            background: #4f46e5;
+            color: white;
+        }
+
+        .auth-buttons button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        /* MAIN */
+        main {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            margin-left: 400px;
+            width: 1000px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+            color: #4f46e5;
+        }
+
+        /* FORM */
+        form label {
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: border 0.3s;
+        }
+
+        form input:focus {
+            outline: none;
+            border: 2px solid #4f46e5;
+        }
+
+        form button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        form button:hover {
+            background: #4338ca;
+            transform: translateY(-2px);
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #4f46e5;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f3f4f6;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .edit-btn {
+            background: #22c55e;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .edit-btn:hover, .delete-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f3f4f6;
+            border-radius: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 28px;
+            color: #4f46e5;
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        @media(max-width: 900px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎓 Student Detail Portal</h1>
+    <div class="auth-buttons">
+        <a href="{%url 'login'%}" class="login-btn">Login</a>
+        <a href="{%url 'register'%}" class="register-btn">Register</a>
+    </div>
+</header>
+
+<main>
+
+
+    <!-- STUDENT DASHBOARD -->
+    <div class="card">
+        <h2>Student Dashboard</h2>
+
+        <div class="stats">
+            <div class="stat-item">
+                <h3 id="totalStudents">{{total_students}}</h3>
+                <p>Total Students</p>
+            </div>
+            <div class="stat-item">
+                <h3 id="totalCities">{{total_cities}}</h3>
+                <p>Cities</p>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>Subject</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable">
+                <!-- Data will be inserted here -->
+                 {%for student in sall%}
+                 <tr><td>{{forloop.counter}}</td>
+                 <td>{{student.name}}</td>
+                 <td>{{student.email}}</td>
+                 <td>{{student.city}}</td>
+                 <td>{{student.subject}}</td>
+                <td><a href="" class="edit-btn">Edit</a><a href="" class="delete-btn">Delete</a></td></tr>
+                 {%endfor%}
+                 
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer>
+    © 2026 Student Portal | Designed with ❤️
+</footer>
+
+</body>
+</html>

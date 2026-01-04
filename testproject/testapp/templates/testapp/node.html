@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js Runtime</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #68a063 0%, #333333 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(51, 51, 51, 0.95);
+            color: #68a063;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-btn:hover {
+            background: #68a063;
+            color: #333333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
+        }
+
+        .header-section {
+            background: rgba(51, 51, 51, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .node-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #68a063;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #68a063;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .runtime-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #68a063 0%, #4d7c47 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        h2 {
+            color: #333333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #68a063;
+        }
+
+        h3 {
+            color: #4d7c47;
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #68a063;
+        }
+
+        .code-block code {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .js-keyword {
+            color: #c586c0;
+        }
+
+        .js-function {
+            color: #dcdcaa;
+        }
+
+        .js-string {
+            color: #ce9178;
+        }
+
+        .js-comment {
+            color: #6a9955;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #68a063 0%, #88c580 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #2e7d32;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-box {
+            background: linear-gradient(135deg, #333333 0%, #2a2a2a 100%);
+            color: #68a063;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .v8-diagram {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            border: 2px solid #fbc02d;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .v8-step {
+            display: inline-block;
+            background: #333333;
+            color: #68a063;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .arrow {
+            display: inline-block;
+            font-size: 1.5rem;
+            color: #fbc02d;
+        }
+
+        .event-loop-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid #1976d2;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .npm-box {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border: 2px solid #d32f2f;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .npm-logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #cb3837;
+            margin-bottom: 10px;
+        }
+
+        .company-badge {
+            display: inline-block;
+            background: #333333;
+            color: #68a063;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .company-badge:hover {
+            background: #68a063;
+            color: #333333;
+            transform: translateY(-2px);
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .use-case-item {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #6a1b9a;
+        }
+
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .framework-item {
+            background: #333333;
+            color: #68a063;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #68a063;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pros {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        }
+
+        .cons {
+            background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 15px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .header-section {
+                padding: 30px 20px;
+            }
+
+            .content-section {
+                padding: 25px 20px;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .home-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .v8-step {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .arrow {
+                display: block;
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="home-btn">← Back to Home</a>
+
+    <div class="container">
+        <div class="header-section">
+            <div class="node-logo">🟢</div>
+            <h1>Node.js</h1>
+            <p class="intro-text">A JavaScript runtime built on Chrome's V8 engine for building fast, scalable, and event-driven server-side applications.</p>
+            <div class="runtime-badge">Server-Side JavaScript • Created by Ryan Dahl</div>
+        </div>
+
+        <div class="content-section">
+            <h2>Introduction</h2>
+            <div class="timeline-box">
+                <p>Node.js was created by <strong>Ryan Dahl</strong> in <strong>2009</strong>.</p>
+                <p style="margin-top: 15px;">It's a <strong>JavaScript runtime built on Chrome's V8 engine</strong> that allows developers to run JavaScript on the server side.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Why Node.js is Popular</h2>
+            <ul>
+                <li>✓ Uses <strong>JavaScript for both frontend and backend</strong></li>
+                <li>✓ Is <strong>non-blocking and asynchronous</strong></li>
+                <li>✓ Has a <strong>fast runtime using V8 engine</strong></li>
+                <li>✓ Has a <strong>large ecosystem</strong> with npm</li>
+                <li>✓ Is used by major companies worldwide</li>
+            </ul>
+            <div style="text-align: center; margin-top: 20px;">
+                <span class="company-badge">Netflix</span>
+                <span class="company-badge">LinkedIn</span>
+                <span class="company-badge">Uber</span>
+                <span class="company-badge">Walmart</span>
+                <span class="company-badge">PayPal</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Features of Node.js</h2>
+            <div class="feature-grid">
+                <div class="feature-item">Event-Driven</div>
+                <div class="feature-item">Non-Blocking I/O</div>
+                <div class="feature-item">Single-Threaded</div>
+                <div class="feature-item">Fast V8 Engine</div>
+                <div class="feature-item">NPM Ecosystem</div>
+                <div class="feature-item">Scalable</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>How Node.js Works</h2>
+            <div class="v8-diagram">
+                <p style="margin-bottom: 15px;"><strong>Node.js Architecture:</strong></p>
+                <div class="v8-step">JavaScript Code</div>
+                <span class="arrow">→</span>
+                <div class="v8-step">V8 Engine</div>
+                <span class="arrow">→</span>
+                <div class="v8-step">Event Loop</div>
+                <span class="arrow">→</span>
+                <div class="v8-step">Execution</div>
+            </div>
+            <p style="text-align: center; margin-top: 15px;">Node.js uses the <strong>V8 JavaScript engine</strong> from Chrome to execute JavaScript outside the browser.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Event-Driven and Non-Blocking I/O</h2>
+            <div class="event-loop-box">
+                <p>Node.js uses <strong>event-driven architecture</strong> and <strong>non-blocking input/output</strong>, which makes it suitable for high-performance applications.</p>
+                <p style="margin-top: 15px;">Instead of waiting for operations to complete, Node.js continues executing other code and uses callbacks to handle results when they're ready.</p>
+            </div>
+            <div class="code-block">
+                <code><span class="js-comment">// Non-blocking file read</span><br>fs.<span class="js-function">readFile</span>(<span class="js-string">'file.txt'</span>, <span class="js-keyword">function</span>(err, data) {<br>  console.<span class="js-function">log</span>(data);<br>});<br>console.<span class="js-function">log</span>(<span class="js-string">'This runs immediately'</span>);</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Single-Threaded Event Loop</h2>
+            <p>Node.js uses a <strong>single-threaded event loop</strong>, which can handle thousands of concurrent connections efficiently without creating multiple threads.</p>
+            <div class="code-block">
+                <code><span class="js-keyword">const</span> http = <span class="js-function">require</span>(<span class="js-string">'http'</span>);<br><br><span class="js-keyword">const</span> server = http.<span class="js-function">createServer</span>(<span class="js-keyword">function</span>(req, res) {<br>  res.<span class="js-function">writeHead</span>(<span class="js-string">200</span>);<br>  res.<span class="js-function">end</span>(<span class="js-string">'Hello Node.js'</span>);<br>});<br><br>server.<span class="js-function">listen</span>(<span class="js-string">3000</span>);</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>NPM (Node Package Manager)</h2>
+            <div class="npm-box">
+                <div class="npm-logo">npm</div>
+                <p><strong>NPM provides access to thousands of libraries and packages</strong>, making development faster and easier.</p>
+                <p style="margin-top: 10px;">It's the world's largest software registry with over 2 million packages.</p>
+            </div>
+            <div class="code-block">
+                <code><span class="js-comment">// Install a package</span><br>npm install express<br><br><span class="js-comment">// Use in your code</span><br><span class="js-keyword">const</span> express = <span class="js-function">require</span>(<span class="js-string">'express'</span>);</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Popular Node.js Frameworks</h2>
+            <div class="framework-grid">
+                <div class="framework-item">Express.js</div>
+                <div class="framework-item">Nest.js</div>
+                <div class="framework-item">Koa.js</div>
+                <div class="framework-item">Hapi.js</div>
+                <div class="framework-item">Fastify</div>
+                <div class="framework-item">Sails.js</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Use Cases</h2>
+            <div class="use-cases-grid">
+                <div class="use-case-item">REST APIs</div>
+                <div class="use-case-item">Real-Time Apps</div>
+                <div class="use-case-item">Microservices</div>
+                <div class="use-case-item">Chat Applications</div>
+                <div class="use-case-item">Streaming Apps</div>
+                <div class="use-case-item">IoT Applications</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Basic Node.js Example</h2>
+            <div class="code-block">
+                <code><span class="js-keyword">const</span> express = <span class="js-function">require</span>(<span class="js-string">'express'</span>);<br><span class="js-keyword">const</span> app = <span class="js-function">express</span>();<br><br>app.<span class="js-function">get</span>(<span class="js-string">'/'</span>, <span class="js-keyword">function</span>(req, res) {<br>  res.<span class="js-function">send</span>(<span class="js-string">'Hello World!'</span>);<br>});<br><br>app.<span class="js-function">listen</span>(<span class="js-string">3000</span>, <span class="js-keyword">function</span>() {<br>  console.<span class="js-function">log</span>(<span class="js-string">'Server running on port 3000'</span>);<br>});</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Advantages & Limitations</h2>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>✓ Advantages</h3>
+                    <ul>
+                        <li>Fast and efficient</li>
+                        <li>Same language for frontend/backend</li>
+                        <li>Large ecosystem (npm)</li>
+                        <li>Great for real-time applications</li>
+                        <li>Active community</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>✗ Limitations</h3>
+                    <ul>
+                        <li>Single-threaded (CPU-intensive tasks)</li>
+                        <li>Callback hell (can be complex)</li>
+                        <li>Unstable API changes</li>
+                        <li>Not ideal for heavy computation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Conclusion</h2>
+            <p>Node.js has revolutionized server-side development by bringing JavaScript to the backend. Its event-driven, non-blocking architecture makes it perfect for building scalable network applications. With the vast npm ecosystem and strong community support, Node.js continues to be a top choice for modern web development.</p>
+        </div>
+    </div>
+</body>
+</html>

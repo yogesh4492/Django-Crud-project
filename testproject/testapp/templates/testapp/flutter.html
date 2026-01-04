@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #02569b 0%, #45d1fd 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #02569b;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-btn:hover {
+            background: #02569b;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
+        }
+
+        .header-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .flutter-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #02569b;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .google-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #02569b 0%, #45d1fd 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        h2 {
+            color: #02569b;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #45d1fd;
+        }
+
+        h3 {
+            color: #0277bd;
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #45d1fd;
+        }
+
+        .code-block code {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .dart-keyword {
+            color: #c792ea;
+        }
+
+        .dart-class {
+            color: #ffcb6b;
+        }
+
+        .dart-function {
+            color: #82aaff;
+        }
+
+        .dart-string {
+            color: #c3e88d;
+        }
+
+        .dart-comment {
+            color: #546e7a;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #02569b 0%, #45d1fd 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #01579b;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline {
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #02569b;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: #02569b;
+            font-size: 1.1rem;
+        }
+
+        .key-points {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #02569b;
+        }
+
+        .key-points li {
+            margin-bottom: 10px;
+        }
+
+        .hot-reload-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid #ff9800;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .hot-reload-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .platform-item {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #6a1b9a;
+            font-size: 1.1rem;
+        }
+
+        .platform-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .dart-badge {
+            display: inline-block;
+            background: #0175c2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .uses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .use-item {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #f57f17;
+        }
+
+        .integration-badge {
+            display: inline-block;
+            background: #02569b;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .integration-badge:hover {
+            background: #45d1fd;
+            color: #02569b;
+            transform: translateY(-2px);
+        }
+
+        .widget-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid #4caf50;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pros {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        }
+
+        .cons {
+            background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 15px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .header-section {
+                padding: 30px 20px;
+            }
+
+            .content-section {
+                padding: 25px 20px;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .home-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="home-btn">← Back to Home</a>
+
+    <div class="container">
+        <div class="header-section">
+            <div class="flutter-logo">🦋</div>
+            <h1>Flutter</h1>
+            <p class="intro-text">An open-source UI software development kit for building cross-platform applications for Android, iOS, web, and desktop.</p>
+            <div class="google-badge">Built by Google</div>
+            <div class="dart-badge">Powered by Dart</div>
+        </div>
+
+        <div class="content-section">
+            <h2>What is Flutter?</h2>
+            <p>Flutter is an <strong>open-source UI software development kit (SDK)</strong> created by Google. It's used for building <strong>cross-platform applications</strong> for Android, iOS, web, and desktop.</p>
+            <div class="key-points">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>✓ Uses the <strong>Dart programming language</strong></li>
+                    <li>✓ Provides a single codebase for multiple platforms</li>
+                    <li>✓ Focus on <strong>fast development, expressive UI, and native performance</strong></li>
+                    <li>✓ Rich widget library for flexible UI design</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>History of Flutter</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-year">2015:</span> Flutter announced by Google
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2017:</span> First beta version released
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2018:</span> Flutter 1.0 stable release
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2019+:</span> Flutter gains popularity for cross-platform development
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2021:</span> Flutter 2 released, expanding support to web and desktop
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">Single Codebase</div>
+                <div class="feature-item">Hot Reload</div>
+                <div class="feature-item">Expressive UI</div>
+                <div class="feature-item">High Performance</div>
+                <div class="feature-item">Cross-Platform</div>
+                <div class="feature-item">Strong Community</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Hot Reload</h2>
+            <div class="hot-reload-box">
+                <div class="hot-reload-icon">⚡</div>
+                <p><strong>Instantly see code changes in the app without losing state!</strong></p>
+                <p style="margin-top: 10px;">Hot Reload enables rapid experimentation and iteration, making development incredibly fast.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Cross-Platform Support</h2>
+            <p>Write once, deploy everywhere! Flutter supports:</p>
+            <div class="platform-grid">
+                <div class="platform-item">
+                    <span class="platform-icon">📱</span>
+                    Android
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">🍎</span>
+                    iOS
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">🌐</span>
+                    Web
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">🖥️</span>
+                    Windows
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">💻</span>
+                    macOS
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">🐧</span>
+                    Linux
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Widget-Based Architecture</h2>
+            <div class="widget-box">
+                <p><strong>Everything in Flutter is a widget!</strong></p>
+                <p style="margin-top: 10px;">Flutter provides a rich set of customizable widgets for building beautiful and expressive UIs.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Flutter Syntax Basics</h2>
+            <div class="code-block">
+                <code><span class="dart-keyword">import</span> <span class="dart-string">'package:flutter/material.dart'</span>;<br><br><span class="dart-keyword">void</span> <span class="dart-function">main</span>() {<br>  <span class="dart-function">runApp</span>(<span class="dart-class">MyApp</span>());<br>}<br><br><span class="dart-keyword">class</span> <span class="dart-class">MyApp</span> <span class="dart-keyword">extends</span> <span class="dart-class">StatelessWidget</span> {<br>  <span class="dart-keyword">@override</span><br>  <span class="dart-class">Widget</span> <span class="dart-function">build</span>(<span class="dart-class">BuildContext</span> context) {<br>    <span class="dart-keyword">return</span> <span class="dart-class">MaterialApp</span>(<br>      home: <span class="dart-class">Scaffold</span>(<br>        appBar: <span class="dart-class">AppBar</span>(<br>          title: <span class="dart-class">Text</span>(<span class="dart-string">'Hello Flutter'</span>),<br>        ),<br>        body: <span class="dart-class">Center</span>(<br>          child: <span class="dart-class">Text</span>(<span class="dart-string">'Welcome to Flutter!'</span>),<br>        ),<br>      ),<br>    );<br>  }<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Common Uses</h2>
+            <div class="uses-grid">
+                <div class="use-item">Mobile Apps</div>
+                <div class="use-item">Web Applications</div>
+                <div class="use-item">Desktop Apps</div>
+                <div class="use-item">MVP Development</div>
+                <div class="use-item">Prototyping</div>
+                <div class="use-item">E-commerce</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Integration & Ecosystem</h2>
+            <p>Flutter works seamlessly with popular backends and services:</p>
+            <div style="text-align: center; margin-top: 20px;">
+                <span class="integration-badge">Firebase</span>
+                <span class="integration-badge">REST APIs</span>
+                <span class="integration-badge">GraphQL</span>
+                <span class="integration-badge">SQLite</span>
+                <span class="integration-badge">AWS</span>
+                <span class="integration-badge">Google Cloud</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Performance</h2>
+            <p>Flutter compiles to <strong>native ARM code</strong>, providing performance that rivals native apps. The framework uses its own rendering engine (Skia) to draw widgets, ensuring consistent performance across platforms.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Advantages & Limitations</h2>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>✓ Advantages</h3>
+                    <ul>
+                        <li>Single codebase saves time</li>
+                        <li>Fast development with Hot Reload</li>
+                        <li>Beautiful, customizable UIs</li>
+                        <li>Native-like performance</li>
+                        <li>Strong community & plugins</li>
+                        <li>Google's long-term support</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>✗ Limitations</h3>
+                    <ul>
+                        <li>Larger app size than native</li>
+                        <li>Limited third-party libraries</li>
+                        <li>Requires learning Dart</li>
+                        <li>Some platform features need native code</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Conclusion</h2>
+            <p>Flutter is a <strong>powerful, cross-platform UI toolkit by Google</strong> that enables fast development of beautiful and high-performance apps across mobile, web, and desktop with a single codebase. With features like Hot Reload, rich widget libraries, and native performance, Flutter has become a top choice for modern app development. Whether you're building a startup MVP or a complex enterprise application, Flutter provides the tools and flexibility needed to bring your ideas to life.</p>
+        </div>
+    </div>
+</body>
+</html>

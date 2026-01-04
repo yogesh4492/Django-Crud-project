@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming Language</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a8b9cc 0%, #283593 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #283593;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-btn:hover {
+            background: #283593;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
+        }
+
+        .header-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .c-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #283593;
+        }
+
+        h1 {
+            color: #283593;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .foundation-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #283593 0%, #1a237e 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        h2 {
+            color: #283593;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #a8b9cc;
+        }
+
+        h3 {
+            color: #3949ab;
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #a8b9cc;
+        }
+
+        .code-block code {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .type {
+            color: #4ec9b0;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .function {
+            color: #dcdcaa;
+        }
+
+        .preprocessor {
+            color: #9b9b9b;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8b9cc 0%, #7986cb 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #283593;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-box {
+            background: linear-gradient(135deg, #283593 0%, #1a237e 100%);
+            color: red;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .compiler-diagram {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid #ff9800;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .compiler-step {
+            display: inline-block;
+            background: #283593;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .arrow {
+            display: inline-block;
+            font-size: 1.5rem;
+            color: #ff9800;
+        }
+
+        .data-types-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .type-box {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #283593;
+        }
+
+        .type-box h3 {
+            margin-top: 0;
+        }
+
+        .pointer-box {
+            background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%);
+            border: 2px solid #0288d1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .memory-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+
+        .memory-box {
+            background: #283593;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pros {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        }
+
+        .cons {
+            background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);
+        }
+
+        .use-case-badge {
+            display: inline-block;
+            background: #283593;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .use-case-badge:hover {
+            background: #a8b9cc;
+            color: #283593;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 15px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .header-section {
+                padding: 30px 20px;
+            }
+
+            .content-section {
+                padding: 25px 20px;
+            }
+
+            .pros-cons, .data-types-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .compiler-step {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .arrow {
+                display: block;
+                transform: rotate(90deg);
+            }
+
+            .memory-visual {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="home-btn">← Back to Home</a>
+
+    <div class="container">
+        <div class="header-section">
+            <div class="c-logo">C</div>
+            <h1>C Programming Language</h1>
+            <p class="intro-text">A general-purpose, procedural programming language known for its speed, efficiency, and low-level memory access.</p>
+            <div class="foundation-badge">Foundation of Modern Programming</div>
+        </div>
+
+        <div class="content-section">
+            <h2>History of C</h2>
+            <div class="timeline-box">
+                <p>The C programming language was developed by <strong>Dennis Ritchie</strong> in <strong>1972</strong> at <strong>Bell Laboratories</strong>.</p>
+                <p style="margin-top: 15px;">It was primarily designed for developing the <strong>UNIX operating system</strong>, which is still widely used today.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Why C is Important</h2>
+            <ul>
+                <li>✓ It is very fast and efficient</li>
+                <li>✓ It provides direct access to memory</li>
+                <li>✓ It is used to build operating systems</li>
+                <li>✓ Many modern languages are based on C</li>
+                <li>✓ It helps understand how computers work internally</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Features of C</h2>
+            <div class="feature-grid">
+                <div class="feature-item">Procedural Language</div>
+                <div class="feature-item">Fast Execution Speed</div>
+                <div class="feature-item">Low-Level Memory Access</div>
+                <div class="feature-item">Portable</div>
+                <div class="feature-item">Simple & Structured</div>
+                <div class="feature-item">Rich Standard Library</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>How C Works</h2>
+            <div class="compiler-diagram">
+                <div class="compiler-step">C Source Code</div>
+                <span class="arrow">→</span>
+                <div class="compiler-step">Compiler (GCC)</div>
+                <span class="arrow">→</span>
+                <div class="compiler-step">Machine Code</div>
+                <span class="arrow">→</span>
+                <div class="compiler-step">CPU Execution</div>
+            </div>
+            <p style="text-align: center; margin-top: 15px;">C code is compiled directly into machine code, making C programs extremely fast.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Basic C Program Structure</h2>
+            <div class="code-block">
+                <code><span class="preprocessor">#include &lt;stdio.h&gt;</span><br><br><span class="type">int</span> <span class="function">main</span>() {<br>    <span class="function">printf</span>(<span class="string">"Hello, C Language"</span>);<br>    <span class="keyword">return</span> <span class="string">0</span>;<br>}</code>
+            </div>
+            <p>Every C program starts execution from the <strong>main() function</strong>.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Variables in C</h2>
+            <p>Variables must be declared with a data type before use.</p>
+            <div class="code-block">
+                <code><span class="type">int</span> age = <span class="string">25</span>;<br><span class="type">float</span> salary = <span class="string">5000.50</span>;<br><span class="type">char</span> grade = <span class="string">'A'</span>;</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Data Types in C</h2>
+            <div class="data-types-grid">
+                <div class="type-box">
+                    <h3>Basic Data Types</h3>
+                    <ul>
+                        <li>int</li>
+                        <li>float</li>
+                        <li>double</li>
+                        <li>char</li>
+                    </ul>
+                </div>
+                <div class="type-box">
+                    <h3>Derived Data Types</h3>
+                    <ul>
+                        <li>Array</li>
+                        <li>Pointer</li>
+                        <li>Structure</li>
+                        <li>Union</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Conditional Statements</h2>
+            <div class="code-block">
+                <code><span class="keyword">if</span> (age >= <span class="string">18</span>) {<br>    <span class="function">printf</span>(<span class="string">"Eligible to vote"</span>);<br>} <span class="keyword">else</span> {<br>    <span class="function">printf</span>(<span class="string">"Not eligible"</span>);<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Loops in C</h2>
+            <h3>For Loop</h3>
+            <div class="code-block">
+                <code><span class="keyword">for</span> (<span class="type">int</span> i = <span class="string">1</span>; i <= <span class="string">5</span>; i++) {<br>    <span class="function">printf</span>(<span class="string">"%d"</span>, i);<br>}</code>
+            </div>
+
+            <h3>While Loop</h3>
+            <div class="code-block">
+                <code><span class="type">int</span> i = <span class="string">1</span>;<br><span class="keyword">while</span> (i <= <span class="string">5</span>) {<br>    <span class="function">printf</span>(<span class="string">"%d"</span>, i);<br>    i++;<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Functions in C</h2>
+            <p>Functions help divide a program into smaller reusable parts.</p>
+            <div class="code-block">
+                <code><span class="type">int</span> <span class="function">add</span>(<span class="type">int</span> a, <span class="type">int</span> b) {<br>    <span class="keyword">return</span> a + b;<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Pointers in C</h2>
+            <div class="pointer-box">
+                <p>Pointers store the <strong>address of variables</strong> and are a powerful feature of C.</p>
+                <div class="memory-visual">
+                    <div class="memory-box">Variable<br>x = 10</div>
+                    <span style="font-size: 2rem;">→</span>
+                    <div class="memory-box">Pointer<br>*p = &x</div>
+                </div>
+            </div>
+            <div class="code-block">
+                <code><span class="type">int</span> x = <span class="string">10</span>;<br><span class="type">int</span> *p = &x;</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Structures in C</h2>
+            <p>Structures are used to group different data types.</p>
+            <div class="code-block">
+                <code><span class="keyword">struct</span> <span class="type">Student</span> {<br>    <span class="type">int</span> id;<br>    <span class="type">char</span> name[<span class="string">50</span>];<br>};</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Uses of C Language</h2>
+            <div style="text-align: center;">
+                <span class="use-case-badge">Operating Systems</span>
+                <span class="use-case-badge">Embedded Systems</span>
+                <span class="use-case-badge">Device Drivers</span>
+                <span class="use-case-badge">Compilers</span>
+                <span class="use-case-badge">Game Development</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Advantages & Limitations</h2>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>✓ Advantages</h3>
+                    <ul>
+                        <li>Very fast execution</li>
+                        <li>Efficient memory management</li>
+                        <li>Portable across platforms</li>
+                        <li>Strong foundation for learning</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>✗ Limitations</h3>
+                    <ul>
+                        <li>No object-oriented features</li>
+                        <li>Manual memory management</li>
+                        <li>No built-in exception handling</li>
+                        <li>Less secure than modern languages</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Conclusion</h2>
+            <p>C is a powerful and fundamental programming language that helps programmers understand <strong>core concepts of computing</strong>. Learning C provides a strong base for system programming and learning advanced languages.</p>
+        </div>
+    </div>
+</body>
+</html>

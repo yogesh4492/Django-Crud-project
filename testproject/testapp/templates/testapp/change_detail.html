@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .left-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .left-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .feature-text small {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .right-section {
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #718096;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .email-verification {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            color: #065f46;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .email-verification strong {
+            color: #047857;
+        }
+
+        .info-box {
+            background: #ebf4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #2d3748;
+            line-height: 1.5;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #a0aec0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .back-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-links a:hover {
+            text-decoration: underline;
+            color: #764ba2;
+        }
+
+        /* Required field indicator */
+        .required {
+            color: #e53e3e;
+        }
+
+        /* Back to Dashboard Button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: white;
+        }
+
+        .back-btn::before {
+            content: "←";
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .left-section {
+                padding: 40px 30px;
+            }
+
+            .left-section h1 {
+                font-size: 2rem;
+            }
+
+            .features {
+                display: none;
+            }
+
+            .right-section {
+                padding: 40px 30px;
+            }
+
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Dashboard Button -->
+    <a href="{%url 'home'%}" class="back-btn">Dashboard</a>
+
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <h1>Update Your Profile</h1>
+            <p>Make changes to your profile information. All fields are editable except your email address.</p>
+            
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">👤</div>
+                    <div class="feature-text">
+                        <strong>Personal Info</strong>
+                        <small>Update your name and details</small>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏙️</div>
+                    <div class="feature-text">
+                        <strong>Location</strong>
+                        <small>Change your city information</small>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📚</div>
+                    <div class="feature-text">
+                        <strong>Subject/Course</strong>
+                        <small>Update your area of study</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section - Edit Details Form -->
+        <div class="right-section">
+            <div class="form-header">
+                <h2>Edit Details</h2>
+                <p>Update your information below</p>
+            </div>
+
+            <!-- Email Verification Indicator -->
+            <div class="email-verification">
+                <span>✓</span>
+                <div>
+                    <strong>Verified:</strong> {{email}}
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Note:</strong> Your email address cannot be changed. To update other information, modify the fields below and click Save Changes.
+            </div>
+
+            <form action="{%url 'change_detail'%}" method="POST">
+                {% csrf_token %}
+                <!-- Hidden field for email -->
+                <input type="hidden" name="email" value="{{email}}">
+
+                <div class="form-group">
+                    <label for="name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required maxlength="30" value="">
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City <span class="required">*</span></label>
+                    <input type="text" id="city" name="city" placeholder="Enter your city" required maxlength="30" value="">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject/Course <span class="required">*</span></label>
+                    <select id="subject" name="subject" required>
+                        <option value="" disabled selected>Select your subject</option>
+                        <option value="PYTHON">PYTHON</option>
+                        <option value="JAVASCRIPT">JAVASCRIPT</option>
+                        <option value="JAVA">JAVA</option>
+                        <option value="C">C</option>
+                        <option value="CPP">CPP</option>
+                        <option value="REACT">REACT</option>
+                        <option value="NODE">NODE</option>
+                        <option value="PHP">PHP</option>
+                        <option value="KOTLIN">KOTLIN</option>
+                        <option value="FLUTTER">FLUTTER</option>
+                    </select>
+                </div>
+
+                <input type="submit" class="submit-btn" value="Save Changes">
+
+                <div class="back-links">
+                    <a href="{%url 'home'%}">← Back to Dashboard</a>
+                </div>
+                <h4>{{error}}</h4>
+                <h4>{{msg}}</h4>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

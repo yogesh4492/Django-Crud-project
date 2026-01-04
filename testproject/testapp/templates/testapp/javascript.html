@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Programming Language</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f7df1e 0%, #323330 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(50, 51, 48, 0.95);
+            color: #f7df1e;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-btn:hover {
+            background: #f7df1e;
+            color: #323330;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
+        }
+
+        .header-section {
+            background: rgba(50, 51, 48, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .js-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #f7df1e;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #f7df1e;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        h2 {
+            color: #323330;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f7df1e;
+        }
+
+        h3 {
+            color: #323330;
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #f7df1e;
+        }
+
+        .code-block code {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .function {
+            color: #dcdcaa;
+        }
+
+        .highlight {
+            background: #f7df1e;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #323330;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #fff9c4 0%, #f7df1e 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #323330;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-box {
+            background: linear-gradient(135deg, #323330 0%, #1a1a18 100%);
+            color: #f7df1e;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .framework-tag {
+            display: inline-block;
+            background: #323330;
+            color: #f7df1e;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .framework-tag:hover {
+            background: #f7df1e;
+            color: #323330;
+            transform: translateY(-2px);
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pros {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        }
+
+        .cons {
+            background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);
+        }
+
+        .variable-types {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .var-badge {
+            background: #323330;
+            color: #f7df1e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .event-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 15px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .header-section {
+                padding: 30px 20px;
+            }
+
+            .content-section {
+                padding: 25px 20px;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .home-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="home-btn">← Back to Home</a>
+
+    <div class="container">
+        <div class="header-section">
+            <div class="js-logo">📜</div>
+            <h1>JavaScript Programming Language</h1>
+            <p class="intro-text">A high-level, interpreted programming language that makes web pages interactive and dynamic. One of the core technologies of the web alongside HTML and CSS.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>History of JavaScript</h2>
+            <div class="timeline-box">
+                <p>JavaScript was created in <span class="highlight">1995</span> by <span class="highlight">Brendan Eich</span> while working at Netscape. It was originally developed in just <strong>10 days</strong> and was first named <em>Mocha</em>, then <em>LiveScript</em>, and finally <strong>JavaScript</strong>.</p>
+                <p style="margin-top: 15px;">Despite the name, JavaScript is <strong>not related to Java</strong>. In 1997, it was standardized as <strong>ECMAScript (ES)</strong>.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Why JavaScript is Important</h2>
+            <ul>
+                <li>✓ Makes web pages interactive</li>
+                <li>✓ Runs on all modern browsers</li>
+                <li>✓ Works on both frontend and backend</li>
+                <li>✓ Has a large developer community</li>
+                <li>✓ Supports modern frameworks and libraries</li>
+            </ul>
+            <p><strong>Almost every website today uses JavaScript in some form.</strong></p>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Features of JavaScript</h2>
+            <div class="feature-grid">
+                <div class="feature-item">Lightweight & Fast</div>
+                <div class="feature-item">Interpreted Language</div>
+                <div class="feature-item">Event-Driven</div>
+                <div class="feature-item">Object-Based</div>
+                <div class="feature-item">Platform-Independent</div>
+                <div class="feature-item">Asynchronous</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>How JavaScript Works</h2>
+            <p>JavaScript code is executed by a <strong>JavaScript engine</strong> inside the browser (like V8 in Chrome). The engine reads the code, interprets it, and executes it line by line.</p>
+            <p><strong>JavaScript can:</strong></p>
+            <ul>
+                <li>Manipulate HTML elements</li>
+                <li>Change CSS styles</li>
+                <li>Handle user events (clicks, input)</li>
+                <li>Communicate with servers</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Basic JavaScript Syntax</h2>
+            <div class="code-block">
+                <code><span class="keyword">let</span> message = <span class="string">"Hello, JavaScript"</span>;<br>console.<span class="function">log</span>(message);</code>
+            </div>
+            <p>JavaScript is <strong>case-sensitive</strong> and uses statements, variables, functions, and objects.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Variables in JavaScript</h2>
+            <p>JavaScript uses three keywords to declare variables:</p>
+            <div class="variable-types">
+                <div class="var-badge">var</div>
+                <div class="var-badge">let</div>
+                <div class="var-badge">const</div>
+            </div>
+            <div class="code-block">
+                <code><span class="keyword">let</span> age = <span class="string">25</span>;<br><span class="keyword">const</span> name = <span class="string">"Yogesh"</span>;</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Data Types</h2>
+            <p>JavaScript supports different data types: Number, String, Boolean, Null, Undefined, Object, Array</p>
+            <div class="code-block">
+                <code><span class="keyword">let</span> score = <span class="string">90</span>;<br><span class="keyword">let</span> isPassed = <span class="string">true</span>;<br><span class="keyword">let</span> languages = [<span class="string">"JavaScript"</span>, <span class="string">"Python"</span>, <span class="string">"Java"</span>];</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Functions</h2>
+            <p>Functions are reusable blocks of code that help in writing clean and maintainable code.</p>
+            <div class="code-block">
+                <code><span class="keyword">function</span> <span class="function">greet</span>(name) {<br>    <span class="keyword">return</span> <span class="string">"Hello "</span> + name;<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Events in JavaScript</h2>
+            <p>JavaScript responds to user actions using events such as:</p>
+            <div class="event-box">
+                <strong>Common Events:</strong> onclick, onchange, onmouseover
+            </div>
+            <div class="code-block">
+                <code>&lt;button <span class="keyword">onclick</span>=<span class="string">"alert('Button Clicked')"</span>&gt;Click Me&lt;/button&gt;</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>DOM Manipulation</h2>
+            <p>DOM (Document Object Model) allows JavaScript to interact with HTML elements.</p>
+            <div class="code-block">
+                <code>document.<span class="function">getElementById</span>(<span class="string">"demo"</span>).innerText = <span class="string">"Text Changed"</span>;</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>JavaScript Uses</h2>
+            <ul>
+                <li>Web development</li>
+                <li>Backend development (Node.js)</li>
+                <li>Mobile apps</li>
+                <li>Game development</li>
+                <li>Data visualization</li>
+                <li>APIs and automation</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Popular JavaScript Frameworks</h2>
+            <div style="text-align: center;">
+                <span class="framework-tag">React</span>
+                <span class="framework-tag">Angular</span>
+                <span class="framework-tag">Vue.js</span>
+                <span class="framework-tag">Node.js</span>
+                <span class="framework-tag">Express.js</span>
+            </div>
+            <p style="margin-top: 20px; text-align: center;">These frameworks make development faster and more efficient.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Advantages & Limitations</h2>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>✓ Advantages</h3>
+                    <ul>
+                        <li>Easy to learn</li>
+                        <li>Huge community support</li>
+                        <li>Fast execution</li>
+                        <li>Versatile usage</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>✗ Limitations</h3>
+                    <ul>
+                        <li>Browser security restrictions</li>
+                        <li>Can be disabled in browsers</li>
+                        <li>Single-threaded nature</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Conclusion</h2>
+            <p>JavaScript is one of the most powerful and essential programming languages today. It plays a vital role in modern web development and continues to evolve with new features and standards. Learning JavaScript opens doors to frontend, backend, and full-stack development opportunities.</p>
+        </div>
+    </div>
+</body>
+</html>
