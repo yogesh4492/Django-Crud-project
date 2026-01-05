@@ -426,13 +426,13 @@
                         <td>
                             <div class="action-btns">
                                 <a href="{%url 'edit'%}" class="edit-btn">Edit</a>
-                                <!-- <a href="" class="delete-btn">Delete</a> -->
-                                 </form>
-                                <form action="{%url 'delete'%}" method="POST">
+                                <a href="{%url 'delete'%}" class="delete-btn">Delete</a>
+                                
+                                <!-- <form action="{%url 'delete'%}" method="POST">
                                     {% csrf_token %}
                                     <input type="hidden" name="email" value="{{student.email}}">
                                     <input type="submit" class="delete-btn" name="delete" value="Delete">
-                                
+                                 -->
                             </div>
                         </td>
                     </tr>

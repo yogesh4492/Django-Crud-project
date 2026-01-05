@@ -114,8 +114,14 @@ def change_password(request):
 def delete(request):
     if request.POST:
         email=request.POST['email']
-        student=Student.objects.filter(email=email).delete() 
-        return redirect('home')
+        password=request.POST['password']
+        student=Student.objects.filter(email=email).first()
+        if check_password(password,student.password):
+            student.delete()
+            return redirect('home')
+        else:
+            return render(request,"testapp/delete.html",{"error":"password not match"})
+    return render(request,"testapp/delete.html")
 
 def edit(request):
     if request.POST:
