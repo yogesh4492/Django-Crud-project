@@ -283,7 +283,7 @@
                 <p>Fill in your details to get started</p>
             </div>
 
-            <form action="" method="POST">
+            <form action="{%url 'register'%}" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Full Name <span class="required">*</span></label>
@@ -328,6 +328,7 @@
                 <div class="login-link">
                     Already have an account? <a href="{%url 'login'%}">Sign In</a>
                 </div>
+                <h4>{{error}}</h4>
             </form>
         </div>
     </div>

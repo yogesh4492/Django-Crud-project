@@ -23,24 +23,27 @@ def register(request):
         p_passsword=request.POST['password']
         p_subject=request.POST['subject']
         p_city=request.POST['city']
-
-        sid=Student.objects.create(
-            name=p_name,
-            email=p_email,
-            password=make_password(p_passsword),
-            subject=p_subject,
-            city=p_city
-
-        )
-        send_mail(
-                subject="Registration Successfully",
-                message="congratulations your registration successfully compleated",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[p_email],
-                fail_silently=False
+        student=Student.objects.filter(email=p_email).first()
+        if student:
+            return render(request,"testapp/registratioin.html",{"error":"email id already exists"})
+        else:
+            sid=Student.objects.create(
+                name=p_name,
+                email=p_email,
+                password=make_password(p_passsword),
+                subject=p_subject,
+                city=p_city
 
             )
-            
+            send_mail(
+                    subject="Registration Successfully",
+                    message="congratulations your registration successfully compleated",
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[p_email],
+                    fail_silently=False
+
+                )
+                
         if sid:
             sall=Student.objects.all()
             total_students=sall.count()
@@ -56,7 +59,6 @@ def register(request):
         else:
             return render(request,"testapp/registratioin.html")
     else:
-        print()
         return render(request,"testapp/registratioin.html")
 
 def login(request):
